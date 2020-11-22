@@ -1,0 +1,81 @@
+    man firewalld.richlanguage
+    firewall-cmd --permanent --add-rich-rule "rule family="ipv4" source address="192.168.12.0/24" service name="ssh" reject"
+    firewall-cmd --reload
+    mkdir /nfsdata
+    vim /etc/fstab 
+    systemctl restart nfs-server
+    systemctl enable nfs-server
+    mount -av
+    df -h
+    mkdir /test
+    yum install samba-client cifs-utils -y
+    vim /etc/fstab 
+    mount -av
+    df -h
+    mkdir /dokyard
+    semanage fcontext -a -t samba_share_t "/dokyard(/.*)?"
+    restorecon -Rv /dokyard/
+    ls -Zd /dokyard/
+    useradd mitchel
+    useradd catherine
+    smbpasswd -a mitchel
+    smbpasswd -a catherine
+    setfacl -m u:mitchel:rwx /dokyard/
+    setfacl -m u:mitchel:r-x /dokyard/
+    firewall-cmd --permanent --add-service=samba
+    firewall-cmd --reload 
+    getsebool -a | grep samba
+    setsebool -P samba_export_all_ro on
+    setsebool -P samba_export_all_rw on
+    systemctl restart smb nmb
+    systemctl enable smb nmb
+    vim /etc/samba/smb.conf
+    systemctl restart smb nmb
+    systemctl enable smb nmb
+    yum install httpd -y
+    echo "hello from wwb hosting"> /var/www/html/index.html
+    cp /usr/share/doc/httpd/httpd-vhosts.conf /etc/httpd/conf.d/one.conf
+    vim /etc/httpd/conf.d/one.conf
+    systemctl restart httpd
+    systemctl enable httpd
+    curl www.example.com
+    mkdir /var/www/practice
+    echo "Hello from virtual hosting"> /var/www/practice/index.html
+    cp /etc/httpd/conf.d/one.conf /etc/httpd/conf.d/two.conf
+    vim /etc/httpd/conf.d/two.conf
+    firewall-cmd --permanent --add-service=http
+    firewall-cmd --reload
+    systemctl restart httpd
+    systemctl enable httpd
+    curl server.example.com
+    mkdir /var/www/html/notes
+    touch file1 /var/www/html/notes
+    vim /etc/httpd/conf.d/one.conf 
+    systemctl restart httpd
+    systemctl enable httpd
+    touch /var/www/html/notes/myfile1
+    systemctl restart httpd
+    systemctl enable httpd
+    lsblk
+    systemctl restart target
+    systemctl enable target
+    targetcli
+    firewall-cmd --permanent --add-port=3260/tcp
+    firewall-cmd --reload
+    vim /root/condition.sh
+    sh condition.sh 
+    sh condition.sh Linux
+    sh condition.sh Fedora
+    vim /root/usersauto
+    cat >testfile
+    sh /root/usersauto
+    sh /root/usersauto testf
+    sh /root/usersauto testfile
+    cat /etc/passwd
+    firewall-cmd --permanent --add-rich-rule "rule family="ipv4" source address="192.168.83.139" forward-port to-port="80" protocol="tcp" port="5343""
+    firewall-cmd --reload
+    firewall-cmd --list-all
+    systemctl restart httpd
+    vim /etc/bashrc
+    . ~/.bashrc 
+    qstat
